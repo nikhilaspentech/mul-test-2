@@ -60,6 +60,12 @@ jobs:
     - uses: actions/download-artifact@v3
       with:
         name: artifacts
+        
+    - name: Upload to Exchange
+      run: |
+        artifactName=$(ls *.jar | head -1)
+        mvn clean deploy -s .maven/settings.xml -DskipTests -Dmule.artifact=$artifactName         
+
     - name: Deploy to DEV
       run: |
         artifactName=$(ls *.jar | head -1)
