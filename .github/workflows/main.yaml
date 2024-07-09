@@ -30,7 +30,7 @@ jobs:
         distribution: 'zulu'
         java-version: 17
     - name: Build with Maven
-      run: mvn -B package -DskipMunitTests --file pom.xml
+      run: mvn -B package -s .maven/settings.xml -DskipMunitTests --file pom.xml
     - name: Stamp artifact file name with commit hash
       run: |
         artifactName1=$(ls target/*.jar | head -1)
@@ -64,4 +64,5 @@ jobs:
       run: |
         artifactName=$(ls *.jar | head -1)
         mvn deploy -DskipMunitTests -DmuleDeploy \
+         -s .maven/settings.xml \
          -Dmule.artifact=$artifactName
